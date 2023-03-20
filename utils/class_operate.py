@@ -32,15 +32,17 @@ class Operation():
             if x == 'to':
                 number = self.to_card[1]
                 if len(number) == 16:
-                    return f'{number[:4]} {number[4:6]}** **** {number[:-5:-1]}'
+                    return f'{number[:4]} {number[4:6]}** **** {number[-4:]}'
                 else:
-                    return '*' * 2 + number[:-5:-1]
+                    return '*' * 2 + number[-4:]
             elif x == 'from':
                 number = self.from_card[1]
                 if len(number) == 16:
-                    return f'{number[:4]} {number[4:6]}** **** {number[:-5:-1]}'
+                    return f'{number[:4]} {number[4:6]}** **** {number[-4:]}'
                 else:
-                    return '*' * 2 + number[:-5:-1]
+                    return '*' * 2 + number[-4:]
+            else:
+                return 'введено неверное значение'
         except IndexError:
             return None
 

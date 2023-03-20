@@ -11,6 +11,7 @@ def load_data(filename):
         data = json.load(f)
     return data
 
+
 def sort_data(data):
     """
     Сортирует данные по дате и статусу операции.
@@ -37,4 +38,3 @@ def pick_latest(data):
         latest_oper.append(data[i])
 
     return latest_oper
-
