@@ -6,7 +6,6 @@ import pytest
 @pytest.fixture()
 def coll():
     return {
-        'id': 441945886,
         'state': 'EXECUTED',
         'date': '2019-08-26T10:50:58.294041',
         'operationAmount': {
@@ -21,7 +20,6 @@ def coll():
 @pytest.fixture()
 def coll_1():
     return {
-        'id': 441945886,
         'state': 'EXECUTED',
         'date': '2019-08-26T10:50:58.294041',
         'operationAmount': {
@@ -30,9 +28,9 @@ def coll_1():
                 'name': 'руб.',
                 'code': 'RUB'}},
         'description': 'Перевод организации',
-        'from': 'Visa Classic 1596837868705199',
         'to': 'Visa Platinum 64686473678894779589'
     }
+
 
 def test_operation_init(coll):
     example = Operation(coll)
@@ -50,15 +48,18 @@ def test_operation_get_card_num(coll, coll_1):
     assert example.get_card_num('from') == ['Visa Classic', '1596837868705199']
     assert example.get_card_num('to') == ['Счет', '64686473678894779589']
     assert example.get_card_num('aaa') == 'введено неверное значение'
-    assert example_1.get_card_num('to') == ['Visa Platinum', '64686473678894779589']
+    assert example_1.get_card_num('from') == ' данных нет'
 
-def test_operation_hide_card_num(coll):
+def test_operation_hide_card_num(coll, coll_1):
     example = Operation(coll)
+    example_1 = Operation(coll_1)
     from_card = example.get_card_num('from')
     to_card = example.get_card_num('to')
+    from_card_1 = example_1.get_card_num('from')
     assert example.hide_card_num('from') == '1596 83** **** 5199'
     assert example.hide_card_num('to') == '**9589'
     assert example.hide_card_num('aaa') == 'введено неверное значение'
+    assert example_1.hide_card_num('from') == None
 
 def test_display_info(coll):
     example = Operation(coll)
@@ -68,5 +69,3 @@ def test_display_info(coll):
         26.08.2019 Перевод организации
         Visa Classic 1596 83** **** 5199 -> Счет **9589
         31957.58 руб.'''
-
-

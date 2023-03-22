@@ -2,7 +2,7 @@ from funcs import load_data, sort_data, pick_latest
 from class_operate import Operation
 
 def main():
-    file = 'operations.json' #исходный файл json с данными
+    file = 'utils/operations.json'  # исходный файл json с данными
     sorted_data = sort_data(load_data(file))
     latest_operations = pick_latest(sorted_data)
 

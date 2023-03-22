@@ -1,5 +1,5 @@
 import pytest
-from utils.funcs import sort_data, pick_latest
+from utils.funcs import sort_data, pick_latest, load_data
 
 @pytest.fixture()
 def coll_original():
@@ -66,8 +66,14 @@ def coll_of_5():
         'state': 'EXECUTED',
         'date': '2018-10-05T18:35:29.512364'
     }]
+
+
+def test_load_data(coll_original):
+    assert load_data('test.json') == coll_original
+
 def test_sort_data(coll_original, coll_sorted):
     assert sort_data(coll_original) == coll_sorted
+
 
 def test_pick_latest(coll_sorted, coll_of_5):
     assert pick_latest(coll_sorted) == coll_of_5
